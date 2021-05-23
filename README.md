@@ -98,10 +98,42 @@ The names of packages should be similar. You can look for SDL tutorial to set up
 ```
 $ cmake -B build && cmake --build build
 ```
+
+### For Nintendo Switch
+
+Make sure you have the devKitPro environment setup with SDL2, SDL2_mixer SDL2_image SDL2_ttf SDL2_net then run  the Makefile.
+
+```
+$ sudo dkp-pacman -S switch-sdl2 switch-sdl2_gfx switch-sdl2_image switch-sdl2_mixer switch-sdl2_net switch-sdl2_ttf
+```
+
+Run the make command and it should create a .nro file
+
+```
+make
+```
+
+on you SD card under the switch folder
+create a folder named DungeonRush and place the res folder and the .nro file
+
+game runs in applet mode.
+
+
+
+
+The names of packages should be similar. You can look for SDL tutorial to set up the environment.
+## Compilation
+**You should make sure all dependencies are installed before compiling**
+```
+$ cmake -B build && cmake --build build
+```
+
+
+
 ## Known issues
 [Game speed too fast with some NVIDIA graphic cards on Linux](https://github.com/Rapiz1/DungeonRush/issues/4)
 ## License and Credits
-DungeonRush has mixed meida with 
+DungeonRush has mixed meida with
 various licenses. Unfortunately I failed to track them all. In other word, there are many stuff excluding code that comes with unknown license. You should not reuse any of audio, bitmaps, font in this project. If you insist, use at your own risk.
 ### Code
 GPL
