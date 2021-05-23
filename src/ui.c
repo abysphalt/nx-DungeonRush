@@ -56,8 +56,30 @@ bool moveCursor(int optsNum) {
           playAudio(AUDIO_BUTTON1);
           return quit;
           break;
+		}
       }
-    }
+      else if (e.type == SDL_JOYBUTTONDOWN) {
+      int joyValue = e.jbutton.button;
+      switch(joyValue) {
+		case JOY_UP:
+          cursorPos--;
+          playAudio(AUDIO_INTER1);
+          break;
+        case JOY_DOWN:
+          cursorPos++;
+          playAudio(AUDIO_INTER1);
+          break;
+        case JOY_A:
+          quit = true;
+          break;
+        case JOY_MINUS:
+          quit = true;
+          cursorPos = optsNum;
+          playAudio(AUDIO_BUTTON1);
+          return quit;
+          break;
+      }
+	}
   }
   cursorPos += optsNum;
   cursorPos %= optsNum;
@@ -70,7 +92,7 @@ int chooseOptions(int optionsNum, Text** options) {
                       SCREEN_HEIGHT / 2, UP);
   int lineGap = FONT_SIZE + FONT_SIZE / 2,
       totalHeight = lineGap * (optionsNum - 1);
-  int startY = (SCREEN_HEIGHT - totalHeight) / 2;
+  int startY = (SCREEN_HEIGHT - totalHeight + 100) / 2;
   while (!moveCursor(optionsNum)) {
     Sprite* sprite = player->sprites->head->element;
     sprite->ani->at = AT_CENTER;

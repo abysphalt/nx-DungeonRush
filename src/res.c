@@ -144,6 +144,16 @@ bool init() {
           printf("SDL_Net_Init: %s\n", SDLNet_GetError());
           success = false;
         }
+        //Initialize SDL Joystick SubSystem
+        if (SDL_Init(SDL_INIT_JOYSTICK) < -1){
+			printf("SDL could not initalize the joysticks! SDL_Error: %s\n", SDL_GetError());
+			success = false;
+		}
+		//Joysticks
+        SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+		SDL_JoystickEventState(SDL_ENABLE);
+		SDL_JoystickOpen(0);
+
       }
     }
   }

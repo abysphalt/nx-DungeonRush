@@ -116,7 +116,16 @@ make
 on you SD card under the switch folder
 create a folder named DungeonRush and place the res folder and the .nro file
 
-game runs in applet mode.
+Game runs in applet mode.
+
+## Switch Port controls
+Press A to select.
+Please note that only 1 player mode is have been tested at the moment.
+
+Use the joycons DPAD to move left, right, up and down.
+Plus to pause during game
+Minus to exit (only when on the main menu).
+If you press Minus during games, it clears the stage..
 
 
 

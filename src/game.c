@@ -988,7 +988,7 @@ void pauseGame() {
   SDL_Event e;
   for (bool quit = 0; !quit;) {
     while (SDL_PollEvent(&e)) {
-      if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN) {
+      if (e.type == SDL_QUIT || e.type == SDL_KEYDOWN || e.type == SDL_JOYBUTTONDOWN) {
         quit = true;
         break;
       }
@@ -1034,6 +1034,25 @@ int wasdToDirection(int keyValue) {
   return -1;
 }
 
+int joyconToDirection(int joyValue) {
+  switch (joyValue){
+	case JOY_LEFT:
+      return LEFT;
+      break;
+    case JOY_RIGHT:
+      return RIGHT;
+      break;
+    case JOY_UP:
+      return UP;
+      break;
+    case JOY_DOWN:
+      return DOWN;
+      break;
+  }
+  return -1;
+}
+
+
 bool handleLocalKeypress() {
   static SDL_Event e;
   bool quit = false;
@@ -1058,6 +1077,27 @@ bool handleLocalKeypress() {
         }
       }
     }
+    else if (e.type == SDL_JOYBUTTONDOWN) {
+      int joyValue = e.jbutton.button;
+      if (joyValue == JOY_PLUS) pauseGame();
+      if (joyValue == JOY_MINUS) quit= true;
+      for (int id = 0; id <= 1 && id < playersCount; id++) {
+        Snake* player = spriteSnake[id];
+        if (player->playerType == LOCAL) {
+          if (!player->buffs[BUFF_FROZEN] && player->sprites->head != NULL) {
+            int direction = id == 0 ? joyconToDirection(joyValue)
+                                    : joyconToDirection(joyValue);
+            if (direction >= 0) {
+              sendPlayerMovePacket(id, direction);
+              changeSpriteDirection(player->sprites->head, direction);
+            }
+          }
+        }
+      }
+    }
+
+
+
   }
   return quit;
 }
