@@ -81,7 +81,7 @@ void hostGame() {
     createText("Listening..", WHITE),
     createText("Listening...", WHITE),
     };
-  
+
   SDL_Event e;
   unsigned frameCount = 0;
   while (!lanClientSocket) {
@@ -91,8 +91,7 @@ void hostGame() {
     SDL_RenderPresent(renderer);
     bool quit = false;
     while (SDL_PollEvent(&e)) {
-      if (e.type == SDL_QUIT || 
-          (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
+      if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || (e.type == SDL_JOYBUTTONDOWN && e.jbutton.button == JOY_MINUS)) {
         quit = true;
       }
     }
@@ -155,14 +154,13 @@ void joinGame(const char* hostname, Uint16 port) {
     createText("Connecting..", WHITE),
     createText("Connecting...", WHITE),
     };
-  
+
   bool quit = false;
   SDL_Event e;
   unsigned frameCount = 0;
   while (!lanClientSocket) {
     while (SDL_PollEvent(&e)) {
-      if (e.type == SDL_QUIT || 
-          (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
+      if (e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE) || (e.type == SDL_JOYBUTTONDOWN && e.jbutton.button == JOY_MINUS)) {
         quit = true;
       }
     }

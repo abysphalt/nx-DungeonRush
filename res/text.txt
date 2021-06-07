@@ -1,9 +1,9 @@
-DungeonRush
-By Rapiz
+DungeonRush By Rapiz
+ported by djakku
 PLACEHOLDER
 PLACEHOLDER
-Player 1
-Player 2
+Djakku 1
+Rapiz 2
 Singleplayer
 Multiplayers
 Ranklist
@@ -15,3 +15,14 @@ Local
 Lan
 Host a game
 Join a game
+DungeonRush By Rapiz
+ported by djakku
+Gamer 1 - ichigo
+Joueur 2 - Banana
+Jeux solo
+Jouer a plusieur
+Rang
+Quitter
+Normal
+Difficile
+Folie totale

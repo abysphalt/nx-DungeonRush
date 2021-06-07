@@ -10,7 +10,7 @@
 #define MAX_PALYERS_NUM 2
 
 //Switch Joycon Controls
-#include <switch.h>
+//#include <switch.h>
 // some switch buttons
 #define JOY_A     0
 #define JOY_B     1
