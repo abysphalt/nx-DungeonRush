@@ -8,6 +8,9 @@
 #include "res.h"
 #include "types.h"
 
+#include <switch.h>
+
+
 extern const int SCALE_FACTOR;
 extern Texture textures[];
 bool inr(int x, int l, int r) { return x <= r && l <= x; }

@@ -1,9 +1,9 @@
 #include "res.h"
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#include <SDL_net.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
+//#include <SDL_net.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,6 +12,8 @@
 #include "render.h"
 #include "weapon.h"
 
+#include <switch.h>
+
 
 
 // Constants
@@ -19,52 +21,52 @@ const int n = SCREEN_WIDTH/UNIT;
 const int m = SCREEN_HEIGHT/UNIT;
 
 const char tilesetPath[TILESET_SIZE][PATH_LEN] = {
-    "res/drawable/0x72_DungeonTilesetII_v1_3",
-    "res/drawable/fireball_explosion1",
-    "res/drawable/halo_explosion1",
-    "res/drawable/halo_explosion2",
-    "res/drawable/fireball",
-    "res/drawable/floor_spike",
-    "res/drawable/floor_exit",
-    "res/drawable/HpMed",
-    "res/drawable/SwordFx",
-    "res/drawable/ClawFx",
-    "res/drawable/Shine",
-    "res/drawable/Thunder",
-    "res/drawable/BloodBound",
-    "res/drawable/arrow",
-    "res/drawable/explosion-2",
-    "res/drawable/ClawFx2",
-    "res/drawable/Axe",
-    "res/drawable/cross_hit",
-    "res/drawable/blood",
-    "res/drawable/SolidFx",
-    "res/drawable/IcePick",
-    "res/drawable/IceShatter",
-    "res/drawable/Ice",
-    "res/drawable/SwordPack",
-    "res/drawable/HolyShield",
-    "res/drawable/golden_cross_hit",
-    "res/drawable/ui",
-    "res/drawable/title",
-    "res/drawable/purple_ball",
-    "res/drawable/purple_exp",
-    "res/drawable/staff",
-    "res/drawable/Thunder_Yellow",
-    "res/drawable/attack_up",
-    "res/drawable/powerful_bow"};
-const char fontPath[] = "res/font/m5x7.ttf";
-const char textsetPath[] = "res/text.txt";
+    "romfs:/res/drawable/0x72_DungeonTilesetII_v1_3",
+    "romfs:/res/drawable/fireball_explosion1",
+    "romfs:/res/drawable/halo_explosion1",
+    "romfs:/res/drawable/halo_explosion2",
+    "romfs:/res/drawable/fireball",
+    "romfs:/res/drawable/floor_spike",
+    "romfs:/res/drawable/floor_exit",
+    "romfs:/res/drawable/HpMed",
+    "romfs:/res/drawable/SwordFx",
+    "romfs:/res/drawable/ClawFx",
+    "romfs:/res/drawable/Shine",
+    "romfs:/res/drawable/Thunder",
+    "romfs:/res/drawable/BloodBound",
+    "romfs:/res/drawable/arrow",
+    "romfs:/res/drawable/explosion-2",
+    "romfs:/res/drawable/ClawFx2",
+    "romfs:/res/drawable/Axe",
+    "romfs:/res/drawable/cross_hit",
+    "romfs:/res/drawable/blood",
+    "romfs:/res/drawable/SolidFx",
+    "romfs:/res/drawable/IcePick",
+    "romfs:/res/drawable/IceShatter",
+    "romfs:/res/drawable/Ice",
+    "romfs:/res/drawable/SwordPack",
+    "romfs:/res/drawable/HolyShield",
+    "romfs:/res/drawable/golden_cross_hit",
+    "romfs:/res/drawable/ui",
+    "romfs:/res/drawable/title",
+    "romfs:/res/drawable/purple_ball",
+    "romfs:/res/drawable/purple_exp",
+    "romfs:/res/drawable/staff",
+    "romfs:/res/drawable/Thunder_Yellow",
+    "romfs:/res/drawable/attack_up",
+    "romfs:/res/drawable/powerful_bow"};
+const char fontPath[] = "romfs:/res/font/m5x7.ttf";
+const char textsetPath[] = "config.ini";
 
 const int bgmNums = 4;
 const char bgmsPath[AUDIO_BGM_SIZE][PATH_LEN] = {
-  "res/audio/main_title.ogg",
-  "res/audio/bg1.ogg",
-  "res/audio/bg2.ogg",
-  "res/audio/bg3.ogg"
+  "romfs:/res/audio/main_title.ogg",
+  "romfs:/res/audio/bg1.ogg",
+  "romfs:/res/audio/bg2.ogg",
+  "romfs:/res/audio/bg3.ogg"
 };
-const char soundsPath[PATH_LEN] = "res/audio/sounds";
-const char soundsPathPrefix[PATH_LEN] = "res/audio/";
+const char soundsPath[PATH_LEN] = "romfs:/res/audio/sounds";
+const char soundsPathPrefix[PATH_LEN] = "romfs:/res/audio/";
 // Gloabls
 int texturesCount;
 Texture textures[TEXTURES_SIZE];
@@ -139,11 +141,13 @@ bool init() {
           printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
           success = false;
         }
+        /*
         //Initialize SDL_net
         if (SDLNet_Init() == -1) {
           printf("SDL_Net_Init: %s\n", SDLNet_GetError());
           success = false;
         }
+        * */
         //Initialize SDL Joystick SubSystem
         if (SDL_Init(SDL_INIT_JOYSTICK) < -1){
 			printf("SDL could not initalize the joysticks! SDL_Error: %s\n", SDL_GetError());
@@ -153,6 +157,10 @@ bool init() {
         SDL_InitSubSystem(SDL_INIT_JOYSTICK);
 		SDL_JoystickEventState(SDL_ENABLE);
 		SDL_JoystickOpen(0);
+
+		//Romfs implementation
+		romfsInit();
+
 
       }
     }
@@ -164,6 +172,7 @@ SDL_Texture* loadSDLTexture(const char* path) {
   SDL_Texture* newTexture = NULL;
 
   // Load image at specified path
+
   SDL_Surface* loadedSurface = IMG_Load(path);
   if (loadedSurface == NULL) {
     printf("Unable to load image %s! SDL_image Error: %s\n", path,
@@ -184,6 +193,7 @@ SDL_Texture* loadSDLTexture(const char* path) {
 }
 bool loadTextset() {
   bool success = true;
+
   FILE* file = fopen(textsetPath, "r");
   char str[TEXT_LEN];
   while (fgets(str, TEXT_LEN, file)) {
@@ -201,6 +211,7 @@ bool loadTextset() {
   return success;
 }
 bool loadTileset(const char* path, SDL_Texture* origin) {
+
   FILE* file = fopen(path, "r");
   int x, y, w, h, f;
   char resName[256];
@@ -223,6 +234,7 @@ bool loadTileset(const char* path, SDL_Texture* origin) {
 }
 bool loadAudio() {
   bool success = true;
+
   for (int i = 0; i < bgmNums; i++) {
     bgms[i] = Mix_LoadMUS(bgmsPath[i]);
     success &= bgms[i] != NULL;
@@ -251,6 +263,7 @@ bool loadMedia() {
   bool success = true;
   // load effects
   initCommonEffects();
+
   // Load tileset
   char imgPath[PATH_LEN + 4];
   for (int i = 0; i < TILESET_SIZE; i++) {
@@ -261,6 +274,7 @@ bool loadMedia() {
     success &= (bool)originTextures[i];
   }
   // Open the font
+
   font = TTF_OpenFont(fontPath, FONT_SIZE);
   if (font == NULL) {
     printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
@@ -298,8 +312,11 @@ void cleanup() {
   TTF_Quit();
   IMG_Quit();
   Mix_CloseAudio();
-  SDLNet_Quit();
+  //SDLNet_Quit();
   SDL_Quit();
+  //Exit romfs
+  romfsExit();
+
 }
 void initCommonEffects() {
   // Effect #0: Death

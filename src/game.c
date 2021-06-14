@@ -1,6 +1,6 @@
 #include "game.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -13,12 +13,14 @@
 #include "bullet.h"
 #include "helper.h"
 #include "map.h"
-#include "net.h"
+//#include "net.h"
 #include "render.h"
 #include "res.h"
 #include "sprite.h"
 #include "types.h"
 #include "weapon.h"
+#include <switch.h>
+
 
 #ifdef DBG
 #include <assert.h>
@@ -1070,7 +1072,7 @@ bool handleLocalKeypress() {
             int direction = id == 0 ? arrowsToDirection(keyValue)
                                     : wasdToDirection(keyValue);
             if (direction >= 0) {
-              sendPlayerMovePacket(id, direction);
+              //sendPlayerMovePacket(id, direction);
               changeSpriteDirection(player->sprites->head, direction);
             }
           }
@@ -1088,7 +1090,7 @@ bool handleLocalKeypress() {
             int direction = id == 0 ? joyconToDirection(joyValue)
                                     : joyconToDirection(joyValue);
             if (direction >= 0) {
-              sendPlayerMovePacket(id, direction);
+              //sendPlayerMovePacket(id, direction);
               changeSpriteDirection(player->sprites->head, direction);
             }
           }
@@ -1102,6 +1104,8 @@ bool handleLocalKeypress() {
   return quit;
 }
 
+
+/*
 void handleLanKeypress() {
   static LanPacket packet;
   int status = recvLanPacket(&packet);
@@ -1120,15 +1124,18 @@ void handleLanKeypress() {
     setTerm(GAME_OVER);
   }
 }
+*/
+
 
 int gameLoop() {
   // int posx = 0, posy = SCREEN_HEIGHT / 2;
   // Game loop
   for (bool quit = 0; !quit;) {
     quit = handleLocalKeypress();
+/*
     if (quit) sendGameOverPacket(3);
     if (lanClientSocket != NULL) handleLanKeypress();
-
+*/
     updateMap();
 
     for (int i = 0; i < spritesCount; i++) {
@@ -1166,14 +1173,14 @@ int gameLoop() {
       termCount--;
       if (!termCount) break;
     } else {
-      int alivePlayer = -1;
+     // int alivePlayer = -1;
       for (int i = 0; i < playersCount; i++) {
         if (!spriteSnake[i]->sprites->head) {
           setTerm(GAME_OVER);
-          sendGameOverPacket(alivePlayer);
+          //sendGameOverPacket(alivePlayer);
           break;
-        } else
-          alivePlayer = i;
+        } //else
+          //alivePlayer = i;
       }
       if (isWin()) {
         setTerm(STAGE_CLEAR);

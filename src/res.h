@@ -1,8 +1,11 @@
 #ifndef SNAKE_RES_H_
 #define SNAKE_RES_H_
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "types.h"
+
+#include <switch.h>
+
 
 #define VERSION_STRING "v1.1(beta)"
 #define PATH_LEN 1024

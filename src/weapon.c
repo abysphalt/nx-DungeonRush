@@ -4,6 +4,9 @@
 #include "res.h"
 #include "types.h"
 
+#include <switch.h>
+
+
 #include <stdio.h>
 
 extern Texture textures[RES_HALO_EXPLOSION2];

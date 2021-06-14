@@ -1,6 +1,6 @@
 #ifndef SNAKE_UI_H_
 #define SNAKE_UI_H_
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "types.h"
 #define UI_MAIN_GAP 50
 #define UI_MAIN_GAP_ALT 33

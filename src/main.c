@@ -7,11 +7,17 @@
 #include "ui.h"
 #include "prng.h"
 
+#include <switch.h>
+
+
 #ifdef DBG
 #include <assert.h>
 #endif
 
 int main(int argc, char** args) {
+
+  romfsInit();
+
   prngSrand(time(NULL));
   // Start up SDL and create window
   if (!init()) {

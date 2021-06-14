@@ -1,6 +1,6 @@
 #include "render.h"
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -9,6 +9,9 @@
 #include "helper.h"
 #include "res.h"
 #include "types.h"
+
+#include <switch.h>
+
 
 #ifdef DBG
 #include <assert.h>

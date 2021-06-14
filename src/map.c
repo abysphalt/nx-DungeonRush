@@ -6,6 +6,10 @@
 #include "render.h"
 #include "res.h"
 #include "types.h"
+
+#include <switch.h>
+
+
 #ifdef DBG
 #include <assert.h>
 #endif

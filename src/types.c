@@ -1,6 +1,6 @@
 #include "types.h"
 
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>

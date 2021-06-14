@@ -1,7 +1,7 @@
 #include "ui.h"
 
-#include <SDL.h>
-#include <SDL_mixer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,12 +10,14 @@
 #include "game.h"
 #include "helper.h"
 #include "map.h"
-#include "net.h"
+//#include "net.h"
 #include "render.h"
 #include "res.h"
 #include "storage.h"
 #include "text.h"
 #include "types.h"
+
+#include <switch.h>
 
 extern LinkList animationsList[];
 extern bool hasMap[MAP_SIZE][MAP_SIZE];
@@ -234,7 +236,7 @@ char* inputUi() {
 
   return ret;
 }
-
+/*
 void launchLanGame() {
   baseUi(10, 10);
   int opt = rangeOptions(LAN_HOSTGAME, LAN_JOINGAME);
@@ -256,7 +258,7 @@ int chooseOnLanUi() {
   clearRenderer();
   return opt;
 }
-
+*/
 void mainUi() {
   baseUi(30, 12);
   playBgm(0);
@@ -311,7 +313,7 @@ void mainUi() {
    AT_BOTTOM_CENTER);
    }
    */
-  int optsNum = 4;
+  int optsNum = 3;
   Text** opts = malloc(sizeof(Text*) * optsNum);
   for (int i = 0; i < optsNum; i++) opts[i] = texts + i + 6;
   int opt = chooseOptions(optsNum, opts);
@@ -319,12 +321,13 @@ void mainUi() {
 
   blackout();
   clearRenderer();
-  int lan;
+//  int lan;
   switch (opt) {
     case 0:
       if (!chooseLevelUi()) break;
       launchLocalGame(1);
       break;
+    /*
     case 1:
       lan = chooseOnLanUi();
       if (lan == 0) {
@@ -336,14 +339,15 @@ void mainUi() {
         launchLocalGame(1);
       }
       break;
-    case 2:
+    */
+    case 1:
       localRankListUi();
       break;
-    case 3:
+    case 2:
       break;
   }
   if (opt == optsNum) return;
-  if (opt != 3) {
+  if (opt != 2) {
     mainUi();
   }
 }
