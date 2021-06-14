@@ -42,31 +42,35 @@ BUILD		:=	build
 SOURCES		:=	src
 DATA		:=	data
 INCLUDES	:=	include
-APP_TITLE	:= DungeonRush
-APP_AUTHOR 	:= djakku
-APP_VERSION := 1.1
-#ROMFS	:=	romfs
+APP_TITLE	:= 	Dungeon Rush
+APP_AUTHOR 	:= 	djakku
+APP_VERSION := 	1.2.1
+ROMFS		:=	romfs
+ICON		:= 	icon.jpg
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
+ARCH		:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 
-CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
+CFLAGS		:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES)
 
-CFLAGS	+=	-D__SWITCH__ $(INCLUDE) `sdl2-config --cflags`
+CFLAGS		+=	-D__SWITCH__ $(INCLUDE) `sdl2-config --cflags`
 
 CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions
 
-ASFLAGS	:=	-g $(ARCH)
+ASFLAGS		:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+
+LIBS		:= `$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf` \
+			-lnx
 
 #LIBS	:=	`sdl2-config --libs` -lnx -lstdc++ -lm
 #LIBS		:=  `sdl2-config --libs` -lnx -lstdc++ -lm -lsdl2 -lsdl2-image -lsdl2-mixer -lsdl2-net -lsdl2-ttf
 
-LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_net` \
-			-lnx
+#LIBS	:=	`$(PREFIX)pkg-config --libs sdl2 SDL2_mixer SDL2_image SDL2_ttf SDL2_net` \
+#			-lnx
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
