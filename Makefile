@@ -43,6 +43,9 @@ SOURCES		:=	src
 DATA		:=	data
 INCLUDES	:=	include
 ROMFS	:=	romfs
+APP_TITLE	:= 	Dungeon Rush
+APP_AUTHOR 	:= 	Rapiz - abysphalt - Starwarsfan2099
+APP_VERSION := 	1.3
 
 #---------------------------------------------------------------------------------
 # options for code generation
