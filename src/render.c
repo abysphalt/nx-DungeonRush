@@ -10,10 +10,7 @@
 #include "res.h"
 #include "types.h"
 
-#include <switch.h>
-
-
-#ifdef DBG
+#ifdef DEBUG
 #include <assert.h>
 #endif
 
@@ -219,7 +216,7 @@ void renderAnimation(Animation* ani) {
     setEffect(ani->origin, ani->effect);
     ani->effect->currentFrame %= ani->effect->duration;
   }
-#ifdef DBG
+#ifdef DEBUG
   assert(ani->duration >= ani->origin->frames);
 #endif
   int stage = 0;
@@ -230,7 +227,7 @@ void renderAnimation(Animation* ani) {
   SDL_RenderCopyEx(renderer, ani->origin->origin, &(ani->origin->crops[stage]),
                    &dst, ani->angle, &poi, ani->flip);
   if (ani->effect) unsetEffect(ani->origin);
-#ifdef DBG_CROSS
+#ifdef DEBUG_CROSS
   if (ani->at == AT_BOTTOM_CENTER) {
     Sprite fake;
     fake.ani = ani;
@@ -357,6 +354,7 @@ void renderId() {
     if (snake->sprites->head) {
       Sprite* snakeHead = snake->sprites->head->element;
       if (i == powerful)
+        // Render player name. 
         renderCenteredTextBackground(&texts[4 + i], snakeHead->x, snakeHead->y,
                                      0.5);
       renderCenteredText(&texts[4 + i], snakeHead->x, snakeHead->y, 0.5);
@@ -377,7 +375,7 @@ void renderInfo() {
   for (int i = 0; i < playersCount; i++) {
     char buf[1 << 8];
     calcScore(spriteSnake[i]->score);
-    sprintf(buf, "Player%d:%5d", i + 1,
+    sprintf(buf, "Player %d:%5d", i + 1,
             (int)(spriteSnake[i]->score->rank + 0.5));
     setText(scoresText[i], buf);
     renderText(scoresText[i], startX, startY, 1);

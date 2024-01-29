@@ -1,6 +1,9 @@
 #include "storage.h"
-
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 void readScore(FILE* f, Score* score) {
   fscanf(f, "%d %d %d %d\n", &score->damage, &score->stand, &score->killed,
@@ -32,10 +35,29 @@ Score** insertScoreToRanklist(Score* score, int* n, Score** scores) {
   return scores;
 }
 
+// Function to create a directory (recursively)
+int createDirectory(const char *path) {
+    return mkdir(path, 0777);  // 0777 sets read, write, and execute permissions for owner, group, and others
+}
+
 void writeRanklist(const char* path, int n, Score** scores) {
+  // Check and see if the directory exists, if not make it.
+  if (access(STORAGE_DIR, F_OK) != 0) {
+    if (createDirectory(STORAGE_DIR) != 0) {
+      #ifdef DEBUG
+        TRACE("Error creating directory");
+      #endif
+      return;
+    }
+    #ifdef DEBUG
+      TRACE("Directory created: %s\n", STORAGE_DIR);
+    #endif
+    }
   FILE* f = fopen(path, "w");
   if (f == NULL) {
-    fprintf(stderr, "writeRanklist: Can not create file\n");
+    #ifdef DEBUG
+      TRACE("writeRanklist: Can not create file\n");
+    #endif
     return;
   } 
   fprintf(f, "%d\n", n);

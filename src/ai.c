@@ -4,8 +4,6 @@
 #include "map.h"
 #include "res.h"
 #include "sprite.h"
-#include <switch.h>
-
 
 extern Block map[MAP_SIZE][MAP_SIZE];
 extern Item itemMap[MAP_SIZE][MAP_SIZE];

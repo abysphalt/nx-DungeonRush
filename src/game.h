@@ -9,21 +9,6 @@
 #define KEYPRESS_DELTA 17
 #define MAX_PALYERS_NUM 2
 
-//Switch Joycon Controls
-//#include <switch.h>
-// some switch buttons
-#define JOY_A     0
-#define JOY_B     1
-#define JOY_X     2
-#define JOY_Y     3
-#define JOY_PLUS  10
-#define JOY_MINUS 11
-#define JOY_LEFT  12
-#define JOY_UP    13
-#define JOY_RIGHT 14
-#define JOY_DOWN  15
-
-
 // Game
 // Spike
 #define SPIKE_TIME_MASK 600
@@ -47,13 +32,23 @@
 // Drop Rate
 // Win
 
-
-
+// Switch buttons
+#define JOY_A     0
+#define JOY_B     1
+#define JOY_X     2
+#define JOY_Y     3
+#define JOY_PLUS  10
+#define JOY_MINUS 11
+#define JOY_LEFT  12
+#define JOY_UP    13
+#define JOY_RIGHT 14
+#define JOY_DOWN  15
 
 void pushMapToRender();
 Score** startGame(int localPlayers, int remotePlayers, bool localFirst);
 void initGame(int localPlayers, int remotePlayers, bool localFirst);
 void destroyGame(int);
+bool handleLocalKeypress();
 int gameLoop();
 void updateAnimationOfSprite(Sprite* self);
 void updateAnimationOfBlock(Block* self);

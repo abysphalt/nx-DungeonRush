@@ -2,8 +2,6 @@
 
 #include "helper.h"
 #include "res.h"
-#include <switch.h>
-
 
 extern const int bgmNums;
 extern Mix_Music *bgms[AUDIO_BGM_SIZE];
