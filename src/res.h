@@ -4,9 +4,6 @@
 #include <SDL2/SDL.h>
 #include "types.h"
 
-#include <switch.h>
-
-
 #define VERSION_STRING "v1.1(beta)"
 #define PATH_LEN 1024
 #define TILESET_SIZE 1024
@@ -14,17 +11,17 @@
 #define TEXTURES_SIZE 1024
 #define EFFECTS_SIZE 128
 #define UNIT 32
-#define SCREEN_WIDTH 1080
-#define SCREEN_HEIGHT 768
-#define FONT_SIZE 38
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
+#define FONT_SIZE 32
 // Resource ID
 // Map Resource
 #define RES_WALL_TOP_LEFT 0
 #define RES_WALL_TOP_MID 1
 #define RES_WALL_TOP_RIGHT 2
 #define RES_WALL_MID 4
-#define RES_WALL_HOLE_1 11
-#define RES_WALL_HOLE_2 12
+#define RES_WALL_HOLE_1 11 
+#define RES_WALL_HOLE_2 12 
 #define RES_WALL_SIDE_TOP_LEFT 35
 #define RES_WALL_SIDE_TOP_RIGHT 36
 #define RES_WALL_SIDE_MID_LEFT 37
@@ -172,16 +169,18 @@
 #define AUDIO_CLAW_HIT_HEAVY 15
 #define AUDIO_COIN 16
 #define AUDIO_MED 17
+extern const char configFile[];
 
 bool init();
 void cleanup();
 bool loadMedia();
 SDL_Texture* loadSDLTexture(const char* path);
 bool loadTileset(const char* path, SDL_Texture* origin);
-bool loadTextset();
+bool loadTextset(const char* path);
 void initCommonEffects();
 void initCommonAnimations();
 void initCommonSprites();
+bool copyFile();
 
 extern SDL_Renderer* renderer;
 #endif

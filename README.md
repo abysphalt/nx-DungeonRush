@@ -5,19 +5,11 @@
 
 *I work on the small project on my own so the code lacks of comments.*
 
+This fork of the project is for the Nintendo Switch. Multiplayer, local or LAN is completely functional. 
+
 ## Download
 
-[Windows(64bit)](https://github.com/Rapiz1/DungeonRush/releases/download/v1.1-beta/DungeonRush-v1.1-beta-Windows-x86_64.zip)
-
-[Windows(32bit)](https://github.com/Rapiz1/DungeonRush/releases/download/v1.1-beta/DungeonRush-v1.1-beta-Windows-i686.zip)
-
-[Linux](https://github.com/Rapiz1/DungeonRush/releases/download/v1.1-beta/DungeonRush-v1.1-beta-linux.zip)
-
-AppImage for Linux is also available in release page.
-
-*The game supports macOS but I don't have an Mac to compile for it.*
-
-The executable is called `dungeon_rush`
+[Download from the releases tab!](https://github.com/Starwarsfan2099/DungeonRush-NX/releases/tag/1.0.0) Everything is in the NRO file.
 
 ## Release Note
 
@@ -98,51 +90,10 @@ The names of packages should be similar. You can look for SDL tutorial to set up
 ```
 $ cmake -B build && cmake --build build
 ```
-
-### For Nintendo Switch
-
-Make sure you have the devKitPro environment setup with SDL2, SDL2_mixer SDL2_image SDL2_ttf SDL2_net then run  the Makefile.
-
-```
-$ sudo dkp-pacman -S switch-sdl2 switch-sdl2_gfx switch-sdl2_image switch-sdl2_mixer switch-sdl2_net switch-sdl2_ttf
-```
-
-Run the make command and it should create a .nro file
-
-```
-make
-```
-
-on you SD card under the switch folder
-create a folder named DungeonRush and place the res folder and the .nro file
-
-Game runs in applet mode.
-
-## Switch Port controls
-Press A to select.
-Please note that only 1 player mode is have been tested at the moment.
-
-Use the joycons DPAD to move left, right, up and down.
-Plus to pause during game
-Minus to exit (only when on the main menu).
-If you press Minus during games, it clears the stage..
-
-
-
-
-The names of packages should be similar. You can look for SDL tutorial to set up the environment.
-## Compilation
-**You should make sure all dependencies are installed before compiling**
-```
-$ cmake -B build && cmake --build build
-```
-
-
-
 ## Known issues
 [Game speed too fast with some NVIDIA graphic cards on Linux](https://github.com/Rapiz1/DungeonRush/issues/4)
 ## License and Credits
-DungeonRush has mixed meida with
+DungeonRush has mixed meida with 
 various licenses. Unfortunately I failed to track them all. In other word, there are many stuff excluding code that comes with unknown license. You should not reuse any of audio, bitmaps, font in this project. If you insist, use at your own risk.
 ### Code
 GPL

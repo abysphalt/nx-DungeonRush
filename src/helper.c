@@ -7,9 +7,7 @@
 #include "prng.h"
 #include "res.h"
 #include "types.h"
-
-#include <switch.h>
-
+#include "debug.h"
 
 extern const int SCALE_FACTOR;
 extern Texture textures[];
@@ -35,23 +33,33 @@ bool RectRectCross(SDL_Rect* a, SDL_Rect* b) {
 }
 bool RectCirCross(SDL_Rect* a, int x, int y, int r) {
   if (inr(x, a->x, a->x + a->w) && inr(y, a->y, a->y + a->h)) {
-    puts("failed1");
+    #ifdef DEBUG
+      TRACE("failed1");
+    #endif
     return true;
   }
   if (abs(x - a->x) <= r) {
-    puts("failed2");
+    #ifdef DEBUG
+      TRACE("failed2");
+    #endif
     return true;
   }
   if (abs(x - a->x - a->w) <= r) {
-    puts("failed3");
+    #ifdef DEBUG
+      TRACE("failed3");
+    #endif
     return true;
   }
   if (abs(y - a->y) <= r) {
-    puts("failed4");
+    #ifdef DEBUG
+      TRACE("failed4");
+    #endif
     return true;
   }
   if (abs(y - a->y - a->h) <= r) {
-    puts("failed5");
+    #ifdef DEBUG
+      TRACE("failed5");
+    #endif
     return true;
   }
   return false;

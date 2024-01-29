@@ -8,8 +8,9 @@
 
 #include "helper.h"
 #include "render.h"
+#include "debug.h"
 
-#ifdef DBG
+#ifdef DEBUG
 #include <assert.h>
 #endif
 
@@ -28,7 +29,7 @@ void initTexture(Texture* self, SDL_Texture* origin, int width, int height,
   // self->crops = malloc(sizeof(SDL_Rect) * frames);
 }
 void destroyTexture(Texture* self) {
-#ifdef DBG
+#ifdef DEBUG
   assert(self);
 #endif
   free(self->crops);
@@ -40,8 +41,9 @@ bool initText(Text* self, const char* str, SDL_Color color) {
   // Render text surface
   SDL_Surface* textSurface = TTF_RenderText_Solid(font, str, color);
   if (textSurface == NULL) {
-    printf("Unable to render text surface! SDL_ttf Error: %s\n",
-           TTF_GetError());
+    #ifdef DEBUG
+      TRACE("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+    #endif
   } else {
     // Create texture from surface pixels
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -49,8 +51,9 @@ bool initText(Text* self, const char* str, SDL_Color color) {
     self->height = textSurface->h;
     SDL_FreeSurface(textSurface);
     if (texture == NULL) {
-      printf("Unable to create texture from rendered text! SDL Error: %s\n",
-             SDL_GetError());
+      #ifdef DEBUG
+        TRACE("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+      #endif
     } else {
       self->origin = texture;
       return true;

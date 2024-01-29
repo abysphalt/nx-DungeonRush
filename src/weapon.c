@@ -3,9 +3,7 @@
 #include "render.h"
 #include "res.h"
 #include "types.h"
-
-#include <switch.h>
-
+#include "debug.h"
 
 #include <stdio.h>
 
@@ -218,7 +216,7 @@ void initWeapons() {
   now->effects[BUFF_FROZEN] = (WeaponBuff){0.6, 80};
   now->deathAudio = AUDIO_SWORD_HIT;
 
-#ifdef DBG
-  puts("weapon done");
+#ifdef DEBUG
+  TRACE("weapon done");
 #endif
 }
